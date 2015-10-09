@@ -33,13 +33,15 @@ class Base
             if (!empty($project_name)) {
 
                 if (in_array($vendor_name, $vendors_to_overload, true)) {
-                    $packages_to_overload[$vendor_name][$project_name] = $project_name;
+                    $packages_to_overload[$vendor_name][] = $project_name;
                 }
             }
         }
 
-        foreach ($packages_to_overload as $vendor_name => $project_name) {
-            static::overLoadVendor($root, $vendor_name, $project_name);
+        foreach ($packages_to_overload as $vendor_name => $projects) {
+            foreach ($projects as $project_name) {
+                static::overLoadVendor($root, $vendor_name, $project_name);
+            }
         }
     }
 
