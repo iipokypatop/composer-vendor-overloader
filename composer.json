@@ -1,0 +1,15 @@
+{
+  "name": "iipokypatop/overloader",
+  "minimum-stability": "dev",
+  "authors": [
+    {
+      "name": "Peter Semenyuk",
+      "email": "iampitos@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Overloader/": "src"
+    }
+  }
+}
