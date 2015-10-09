@@ -33,7 +33,7 @@ class Base
             if (!empty($project_name)) {
 
                 if (in_array($vendor_name, $vendors_to_overload, true)) {
-                    $packages_to_overload[$vendor_name] = $project_name;
+                    $packages_to_overload[$vendor_name][] = $project_name;
                 }
             }
         }
@@ -45,10 +45,10 @@ class Base
 
     protected static function overLoadVendor($root, $vendor_name, $project_name)
     {
-        $autoload_path = "$root/../$vendor_name/$project_name/vendor/autoload.php";
+        $autoloader_path = "$root/../$vendor_name/$project_name/vendor/autoload.php";
 
-        if (file_exists($autoload_path)) {
-            require_once $autoload_path;
+        if (file_exists($autoloader_path)) {
+            require_once $autoloader_path;
         }
     }
 }
