@@ -11,5 +11,8 @@
     "psr-4": {
       "Overloader\\": "src/"
     }
+  },
+  "scripts": {
+    "create-composer-dump-overloaded-files": "php ./src/Overloader.php"
   }
 }
