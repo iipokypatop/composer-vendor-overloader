@@ -4,6 +4,36 @@ namespace Overloader;
 
 class Base
 {
+    protected static $composer_bin = "composer";
+
+    protected static $automatic_create_autoload_dump = true;
+
+    /**
+     * @return boolean
+     */
+    public static function isAutomaticCreateAutoloadDump()
+    {
+        return self::$automatic_create_autoload_dump;
+    }
+
+    /**
+     * @param boolean $automatic_create_autoload_dump
+     */
+    public static function setAutomaticCreateAutoloadDump($automatic_create_autoload_dump)
+    {
+        self::$automatic_create_autoload_dump = $automatic_create_autoload_dump;
+    }
+
+
+    /**
+     * @return string
+     */
+    public static function getComposerBin()
+    {
+        return self::$composer_bin;
+    }
+
+
     public static function load(array $vendors_to_overload)
     {
         if (empty($vendors_to_overload)) {
@@ -44,20 +74,22 @@ class Base
 
     protected static function overLoadVendor($root, $vendor_name, $project_name)
     {
-        $autoloader_path = "$root/vendor/$vendor_name/$project_name/vendor/autoload.php";
+        $autoloader_path = "$root/../vendor/$vendor_name/$project_name/vendor/autoload.php";
 
         if (file_exists($autoloader_path)) {
 
             require_once $autoloader_path;
 
-        } else {
+        } elseif (true === static::$automatic_create_autoload_dump) {
 
-            $project_dir = "$root/vendor/$vendor_name/$project_name/";
+            $project_dir = "$root/../vendor/$vendor_name/$project_name";
 
             if (is_dir($project_dir)) {
 
+                $composer_bin = static::$composer_bin;
+
                 $cmd = <<<COMMAND
-composer dump -n -d $project_dir
+{$composer_bin} dump -n -d {$project_dir}
 COMMAND;
 
                 shell_exec($cmd);
