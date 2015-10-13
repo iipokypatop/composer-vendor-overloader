@@ -47,7 +47,25 @@ class Base
         $autoloader_path = "$root/vendor/$vendor_name/$project_name/vendor/autoload.php";
 
         if (file_exists($autoloader_path)) {
+
             require_once $autoloader_path;
+
+        } else {
+
+            $project_dir = "$root/vendor/$vendor_name/$project_name/";
+
+            if (is_dir($project_dir)) {
+
+                $cmd = <<<COMMAND
+composer dump -n -d $project_dir
+COMMAND;
+
+                shell_exec($cmd);
+
+                if (file_exists($autoloader_path)) {
+                    require_once $autoloader_path;
+                }
+            }
         }
     }
 }
