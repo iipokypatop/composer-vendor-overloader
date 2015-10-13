@@ -3,10 +3,16 @@
   /**  your composer code here **/
 
 
-  /**  add the following lines to composer **/
+  /**
+    add the following code to composer.json
+    to generate composer autoload files in projects located ./project_root/../vendor/your-vendor-1
+    and ./project_root/../vendor/your-vendor-2 after executing command `composer [install | update | dump]`
+  **/
+
   "scripts": {
     "post-autoload-dump": "\\Overloader\\Base::createDumpFiles"
   },
+
   "extra": {
     "overloader": {
       "vendors" : ["your-vendor-1", "your-vendor-2"]
