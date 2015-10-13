@@ -1,0 +1,13 @@
+{
+
+  /**  your composer code **/
+
+  "scripts": {
+    "post-autoload-dump": "\\Overloader\\Base::createDumpFiles"
+  },
+  "extra": {
+    "overloader": {
+      "vendors" : ["vendor1", "vendor2"]
+    }
+  }
+}

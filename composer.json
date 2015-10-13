@@ -13,6 +13,6 @@
     }
   },
   "scripts": {
-    "create-composer-dump-overloaded-files": "php ./src/Overloader.php"
+    "post-autoload-dump": "\\Overloader\\Base"
   }
 }

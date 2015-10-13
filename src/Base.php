@@ -69,4 +69,20 @@ COMMAND;
             }
         }
     }
+
+    public static function createDumpFiles(\Composer\Script\Event $event)
+    {
+        $extra = $event->getComposer()->getPackage()->getExtra();
+        if (
+            !empty($extra['overloader']['vendors']) && is_array($extra['overloader']['vendors'])
+        ) {
+
+            $vendors_to_overload = [];
+            foreach ($extra['overloader']['vendors'] as $vendor) {
+                $vendors_to_overload[] = (string)$vendor;
+            }
+
+            static::load($vendors_to_overload);
+        }
+    }
 }
