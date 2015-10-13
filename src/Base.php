@@ -4,36 +4,6 @@ namespace Overloader;
 
 class Base
 {
-    protected static $composer_bin = "composer";
-
-    protected static $automatic_create_autoload_dump = true;
-
-    /**
-     * @return boolean
-     */
-    public static function isAutomaticCreateAutoloadDump()
-    {
-        return self::$automatic_create_autoload_dump;
-    }
-
-    /**
-     * @param boolean $automatic_create_autoload_dump
-     */
-    public static function setAutomaticCreateAutoloadDump($automatic_create_autoload_dump)
-    {
-        self::$automatic_create_autoload_dump = $automatic_create_autoload_dump;
-    }
-
-
-    /**
-     * @return string
-     */
-    public static function getComposerBin()
-    {
-        return self::$composer_bin;
-    }
-
-
     public static function load(array $vendors_to_overload)
     {
         if (empty($vendors_to_overload)) {
@@ -44,9 +14,9 @@ class Base
             assert(is_string($vendor_name));
         }
 
-        $root = __DIR__ . '/../../../..';
+        $project_root = __DIR__ . '/../../../..';
 
-        $json = json_decode(file_get_contents($root . '/composer.json'));
+        $json = json_decode(file_get_contents($project_root . '/composer.json'));
 
         $all_packages = array_keys(get_object_vars($json->require));
 
@@ -67,7 +37,7 @@ class Base
 
         foreach ($packages_to_overload as $vendor_name => $projects) {
             foreach ($projects as $project_name) {
-                static::overLoadVendor($root, $vendor_name, $project_name);
+                static::overLoadVendor($project_root, $vendor_name, $project_name);
             }
         }
     }
@@ -80,23 +50,22 @@ class Base
 
             require_once $autoloader_path;
 
-        } elseif (true === static::$automatic_create_autoload_dump) {
+        } else {
 
             $project_dir = "$root/../vendor/$vendor_name/$project_name";
 
-            if (is_dir($project_dir)) {
+            if (!is_dir($project_dir)) {
+                return;
+            }
 
-                $composer_bin = static::$composer_bin;
-
-                $cmd = <<<COMMAND
-{$composer_bin} dump -n -d {$project_dir}
+            $cmd = <<<COMMAND
+composer dump -n -d $project_dir
 COMMAND;
 
-                shell_exec($cmd);
+            echo shell_exec($cmd);
 
-                if (file_exists($autoloader_path)) {
-                    require_once $autoloader_path;
-                }
+            if (file_exists($autoloader_path)) {
+                require_once $autoloader_path;
             }
         }
     }
