@@ -3,6 +3,6 @@
 require_once __DIR__ . "/vendor/autoload.php";
 
 \Overloader\Base::load([
-    'vendor1',
-    'vendor2',
+    'your-vendor-1',
+    'your-vendor-2',
 ]);
