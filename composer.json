@@ -11,8 +11,5 @@
     "psr-4": {
       "Overloader\\": "src/"
     }
-  },
-  "scripts": {
-    "post-autoload-dump": "\\Overloader\\Base"
   }
 }
