@@ -44,7 +44,7 @@ class Base
 
     protected static function overLoadVendor($root, $vendor_name, $project_name)
     {
-        $autoloader_path = "$root/../$vendor_name/$project_name/vendor/autoload.php";
+        $autoloader_path = "$root/vendor/$vendor_name/$project_name/vendor/autoload.php";
 
         if (file_exists($autoloader_path)) {
             require_once $autoloader_path;
