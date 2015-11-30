@@ -2,7 +2,7 @@
 
 namespace Overloader;
 
-class Base
+class Overloader
 {
     public static function load(array $vendors_to_overload)
     {
