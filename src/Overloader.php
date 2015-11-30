@@ -4,7 +4,7 @@ namespace Overloader;
 
 class Overloader
 {
-    public static function load(array $vendors_to_overload)
+    public static function overload(array $vendors_to_overload)
     {
         if (empty($vendors_to_overload)) {
             return;
@@ -82,7 +82,7 @@ COMMAND;
                 $vendors_to_overload[] = (string)$vendor;
             }
 
-            static::load($vendors_to_overload);
+            static::overload($vendors_to_overload);
         }
     }
 }
