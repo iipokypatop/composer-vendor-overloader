@@ -10,7 +10,7 @@
   **/
 
   "scripts": {
-    "post-autoload-dump": "\\Overloader\\Base::createDumpFiles"
+    "post-autoload-dump": "\\Overloader\\Overloader::createDumpFiles"
   },
 
   "extra": {
