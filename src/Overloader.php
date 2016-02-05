@@ -44,29 +44,22 @@ class Overloader
 
     protected static function overLoadVendor($root, $vendor_name, $project_name)
     {
-        $autoloader_path = "$root/../vendor/$vendor_name/$project_name/vendor/autoload.php";
+          $project_dir = "$root/../vendor/$vendor_name/$project_name";
 
-        if (file_exists($autoloader_path)) {
+        if (!is_dir($project_dir)) {
+            return;
+        }
 
-            require_once $autoloader_path;
-
-        } else {
-
-            $project_dir = "$root/../vendor/$vendor_name/$project_name";
-
-            if (!is_dir($project_dir)) {
-                return;
-            }
-
-            $cmd = <<<COMMAND
-composer dump -n -d $project_dir
+        $cmd = <<<COMMAND
+composer dump -n -d $project_dir --no-scripts
 COMMAND;
 
-            echo shell_exec($cmd);
+        echo shell_exec($cmd);
 
-            if (file_exists($autoloader_path)) {
-                require_once $autoloader_path;
-            }
+        $autoloader_path = "$project_dir/vendor/autoload.php";
+
+        if (file_exists($autoloader_path)) {
+            require_once $autoloader_path;
         }
     }
 
