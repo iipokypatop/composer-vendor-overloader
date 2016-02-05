@@ -156,7 +156,7 @@ class Overloader
         }
 
         $cmd = <<<COMMAND
-composer dump -n -d $project_dir --no-scripts
+composer dump -n -d $project_dir --no-scripts 
 COMMAND;
 
         echo $cmd;
