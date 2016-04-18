@@ -69,6 +69,10 @@ class Overloader
 
         foreach ($composer_packages as $package) {
 
+            if (strpos($package, '/') === false) {
+                continue;
+            }
+
             list($vendor_name, $project_name) = explode('/', $package);
 
             if (!empty($project_name)) {
